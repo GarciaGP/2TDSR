@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31410.357
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fiap.Aula01.Exemplo01", "Fiap.Aula01.Exemplo01\Fiap.Aula01.Exemplo01.csproj", "{DA9F7A22-0EBD-4B3B-B61D-B9C187E4323D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fiap.Aula01.Exemplo01", "Fiap.Aula01.Exemplo01\Fiap.Aula01.Exemplo01.csproj", "{DA9F7A22-0EBD-4B3B-B61D-B9C187E4323D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fiap.Aula01.Exemplo02", "Fiap.Aula01.Exemplo02\Fiap.Aula01.Exemplo02.csproj", "{781487CE-1299-40A9-90B1-A3BB0105EF76}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fiap.Aula01.Exercicio", "Fiap.Aula01.Exercicio\Fiap.Aula01.Exercicio.csproj", "{02649558-E079-4ADE-BFD2-4C974AEC0B5D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{DA9F7A22-0EBD-4B3B-B61D-B9C187E4323D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DA9F7A22-0EBD-4B3B-B61D-B9C187E4323D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DA9F7A22-0EBD-4B3B-B61D-B9C187E4323D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{781487CE-1299-40A9-90B1-A3BB0105EF76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{781487CE-1299-40A9-90B1-A3BB0105EF76}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{781487CE-1299-40A9-90B1-A3BB0105EF76}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{781487CE-1299-40A9-90B1-A3BB0105EF76}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02649558-E079-4ADE-BFD2-4C974AEC0B5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02649558-E079-4ADE-BFD2-4C974AEC0B5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02649558-E079-4ADE-BFD2-4C974AEC0B5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02649558-E079-4ADE-BFD2-4C974AEC0B5D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
