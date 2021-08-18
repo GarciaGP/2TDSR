@@ -5,7 +5,6 @@ using System.Text;
 namespace Fiap.Aula01.Exemplo02.Exceptions
 {
     //exception tab tab
-
     [Serializable]
     public class EmptyListException : Exception
     {

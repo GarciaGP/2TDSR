@@ -22,7 +22,7 @@ namespace Fiap.Aula01.Exemplo02.Repositories
             _lista.Add(esporte);
         }
 
-        public IList<Esporte> Listar()
+        public IList<Esporte> Listar() 
         {
             //Validar se a lista está vazia, se estiver lançar uma exception
             if (_lista.Count == 0)
