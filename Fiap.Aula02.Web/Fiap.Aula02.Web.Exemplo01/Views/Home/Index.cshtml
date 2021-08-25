@@ -2,7 +2,8 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<!-- Link para a página de cadastro de produto -->
+<a class="btn btn-danger" asp-controller="produto" asp-action="cadastrar">Cadastro de Produto</a>
+
+<!-- Link para a página de cadastro de usuário -->
+<a class="btn btn-warning" asp-controller="usuario" asp-action="cadastrar">Cadastro de Usuário</a>

@@ -1,0 +1,36 @@
+﻿@model Usuario
+
+@{
+    ViewData["Title"] = "Cadastrar";
+}
+
+<h1>Cadastro de Usuário</h1>
+
+@if (Model != null)
+{
+    <div class="alert alert-success">
+        @TempData["msg"]
+        <ul>
+            <li>@ViewData["nome"]</li>
+            <li>@ViewBag.data</li>
+            <li>@Model.Email</li>
+        </ul>
+    </div>
+}
+
+<form asp-action="cadastrar">
+    <div class="form-group">
+        <label for="id-nome">Nome</label>
+        <input type="text" name="nome" class="form-control" id="id-nome" />
+    </div>
+    <div class="form-group">
+        <label for="id-data">Data Nascimento</label>
+        <input type="text" name="dataNascimento" class="form-control" id="id-data" />
+    </div>
+    <div class="form-group">
+        <label for="id-email">E-mail</label>
+        <input type="text" name="email" id="id-email" class="form-control" />
+    </div>
+    <input type="submit" value="Cadastrar" class="btn btn-outline-success" />
+</form>
+
