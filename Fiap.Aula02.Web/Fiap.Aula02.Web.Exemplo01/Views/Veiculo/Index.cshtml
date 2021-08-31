@@ -1,0 +1,35 @@
+﻿@model List<Veiculo>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<div class="text-right mb-2">
+    <a asp-action="cadastrar" class="btn btn-outline-dark btn-sm">Cadastrar</a>
+</div>
+
+<table class="table">
+    <tr>
+        <th>Id</th>
+        <th>Modelo</th>
+        <th>Valor</th>
+        <th>Ano</th>
+        <th>Data Compra</th>
+        <th>Automático</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Id</td>
+            <td>@item.Modelo</td>
+            <td>@item.Valor</td>
+            <td>@item.Ano</td>
+            <td>@item.DataCompra</td>
+            <td>@item.Automatico</td>
+        </tr>
+    }
+</table>
+
+

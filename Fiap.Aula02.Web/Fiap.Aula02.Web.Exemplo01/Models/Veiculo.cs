@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -7,15 +8,16 @@ namespace Fiap.Aula02.Web.Exemplo01.Models
 {
     public class Veiculo
     {
+        public int Id { get; set; }
         public string Modelo { get; set; }
         public int Ano { get; set; }
+
+        [Display(Name = "Automático")]
         public bool Automatico { get; set; }
         public decimal Valor { get; set; }
+
+        //Modifica o type do input (dataType) e o texto do label (display)
+        [DataType(DataType.Date), Display(Name = "Data de Cadastro")]        
+        public DateTime DataCompra { get; set; }
     }
 }
-
-/** Criar uma página para cadastrar o Veiculo (utilizando tag helpers)
- *  "Cadastrar" o veiculo em uma lista na controller
- *      private static IList<Veiculo> _banco;
- *  Criar uma página para listar todos os veiculos
- */
