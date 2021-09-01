@@ -17,7 +17,17 @@ namespace Fiap.Aula02.Web.Exemplo01.Models
         public decimal Valor { get; set; }
 
         //Modifica o type do input (dataType) e o texto do label (display)
-        [DataType(DataType.Date), Display(Name = "Data de Cadastro")]        
+        [DataType(DataType.Date), Display(Name = "Data de Compra")]        
         public DateTime DataCompra { get; set; }
+
+        public Combustivel Combustivel { get; set; }
+
+        public string Cor { get; set; }
     }
+
+    public enum Combustivel
+    {
+        Etanol, Gasolina, Flex, Diesel, Eletrico, Hibrido
+    }
+
 }

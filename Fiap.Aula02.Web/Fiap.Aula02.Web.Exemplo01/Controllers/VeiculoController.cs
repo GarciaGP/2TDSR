@@ -1,5 +1,6 @@
 ﻿using Fiap.Aula02.Web.Exemplo01.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,40 @@ namespace Fiap.Aula02.Web.Exemplo01.Controllers
         //Atributo que armazena o id do veículo
         private static int id;
 
+        [HttpGet]
+        public IActionResult Remover(int id)
+        {
+            //Remove o veículo da lista pelo index
+            _banco.RemoveAt( _banco.FindIndex(v => v.Id == id) );
+            //Mensagem de sucesso
+            TempData["msg"] = "Veículo removido!";
+            //Redirect para a listagem
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost] //Recebe os dados do formulário e atualiza o veículo na lista
+        public IActionResult Editar(Veiculo veiculo)
+        {
+            //Atualizar o veículo na lista pelo index (pesquisa o index do veículo pelo Id)
+            _banco[ _banco.FindIndex(churros => churros.Id == veiculo.Id) ] = veiculo;
+            //Mensagem de sucesso
+            TempData["msg"] = "Veículo atualizado!";
+            //Redirecionar para a listagem
+            return RedirectToAction("Index");
+        }
+
+        //URL: /veiculo/editar/id
+        [HttpGet] //Abrir a página de edição com o formulário HTML preenchido
+        public IActionResult Editar(int id)
+        {
+            //Carregar as opções de cores do select
+            CarregarCores();
+            //Pesquisar o veículo pelo Id
+            var veiculo = _banco.Find(carro => carro.Id == id);
+            //Enviar o veículo para a view
+            return View(veiculo);
+        }
+
         //URL: /veiculo/index ou /veiculo
         public IActionResult Index()
         {
@@ -24,8 +59,16 @@ namespace Fiap.Aula02.Web.Exemplo01.Controllers
         //URL: /veiculo/cadastrar
         [HttpGet] //Abrir a página com o formulário HTML
         public IActionResult Cadastrar()
-        {            
+        {
+            CarregarCores();
             return View();
+        }
+
+        private void CarregarCores()
+        {
+            //Carregar as opções de cores do select
+            var lista = new List<string>(new string[] { "Prata", "Preto", "Vermelho", "Azul Metálico", "Branco" });
+            ViewBag.cores = new SelectList(lista);
         }
 
         [HttpPost] //Recupera os dados do formulário e adicionar na lista

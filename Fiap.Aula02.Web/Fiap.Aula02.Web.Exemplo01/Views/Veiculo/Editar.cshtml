@@ -1,19 +1,11 @@
 ﻿@model Veiculo
-
 @{
-    ViewData["Title"] = "Cadastrar";
+    ViewData["Title"] = "Editar";
 }
 
-<h1>Cadastro de Veículo</h1>
+<h1>Editar</h1>
 
-@if (TempData["msg"] != null)
-{
-    <div class="alert alert-success">
-        @TempData["msg"]
-    </div>
-}
-
-<form asp-action="cadastrar">
+<form asp-action="editar">
     <div class="form-group">
         <label asp-for="Modelo"></label>
         <input asp-for="Modelo" class="form-control" />
@@ -46,7 +38,7 @@
         <input asp-for="Automatico" />
         <label asp-for="Automatico"></label>
     </div>
-    <input type="submit" value="Cadastrar" class="btn btn-outline-primary" />
-    <a asp-action="index" class="btn btn-outline-dark">Veículos</a>
+    <input type="submit" value="Editar" class="btn btn-outline-primary" />
+    <a asp-action="index" class="btn btn-outline-dark">Cancelar</a>
 </form>
 
