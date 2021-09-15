@@ -1,0 +1,34 @@
+﻿@model Veiculo 
+
+<div class="form-group">
+    <label asp-for="Modelo"></label>
+    <input asp-for="Modelo" class="form-control" />
+</div>
+<div class="form-group">
+    <label asp-for="Valor"></label>
+    <input asp-for="Valor" class="form-control" />
+</div>
+<div class="form-group">
+    <label asp-for="Ano"></label>
+    <input asp-for="Ano" class="form-control" />
+</div>
+<div class="form-group">
+    <label asp-for="DataCompra"></label>
+    <input asp-for="DataCompra" class="form-control" />
+</div>
+<div class="form-group">
+    <label asp-for="Combustivel"></label>
+    <select asp-for="Combustivel" class="form-control" asp-items="@Html.GetEnumSelectList<Combustivel>()">
+        <option>Selecione</option>
+    </select>
+</div>
+<div class="form-group">
+    <label asp-for="Cor"></label>
+    <select asp-for="Cor" class="form-control" asp-items="@ViewBag.cores">
+        <option>Selecione</option>
+    </select>
+</div>
+<div class="form-group">
+    <input asp-for="Automatico" />
+    <label asp-for="Automatico"></label>
+</div>
