@@ -1,0 +1,36 @@
+﻿@model List<Filme>
+
+@{
+    ViewData["Title"] = "Filmes";
+}
+
+<h1>Catálogo</h1>
+
+<table class="table">
+    <tr>
+        <th>Id</th>            
+        <th>Nome</th>
+        <th>Ano</th>
+        <th>Data Lançamento</th>
+        <th>Gênero</th>
+        <th>Maior Idade</th>
+        <th>Sinopse</th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.FilmeId</td>
+            <td>@item.Nome</td>
+            <td>@item.Ano</td>
+            <td>@item.DataLancamento.ToShortDateString()</td>
+            <td>@item.Genero</td>
+            <td>@(item.MaiorIdade?"Sim":"Não")</td>
+            <td>@item.Sinopse</td>
+            <td>
+                <a asp-action="editar" asp-route-id="@item.FilmeId" class="btn btn-sm btn-dark">Editar</a>
+            </td>
+        </tr>
+    }
+</table>
+

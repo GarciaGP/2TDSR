@@ -1,14 +1,16 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-<!-- Implementar o CRUD para o Model 
+<!-- Implementar o CRUD para o Model
      Livro: (Codigo, Titulo, Data Lançamento, Valor, Categoria (Enum), Novo (bool), Editora (String enviada pelo controller))
-        
-    Criar a Model
+
+    Criar a Model e adicionar as anotações para definir o label e o tipo de campo do formulário
     Criar o Controller
+    Criar um tag helper
 
     Cadastrar:
         Criar a action (Método) GET: abrir a página com o formulário
+            Se o formulário possuir um select, enviar as opções do select
         Criar a View com o formulário HTML (partial view para o formulário)
         Criar a action POST: recebe os dados, adiciona na lista, seta a mensagem e faz um redirect
 
@@ -17,16 +19,15 @@
         Criar a View com a tabela HTML para exibir os dados
 
     Editar:
-        Ajustar a view de listagem para adicionar o link que envia o Id que será editado
+        Ajustar a view de listagem para adicionar o link que envia o Id do model que será editado
         Criar a action GET: recebe o id, pesquisa o model e envia para a view
+             Se o formulário possuir um select, enviar as opções do select
         Criar a View com o formulário HTML (partial view para o formulário)
         Criar a action POST: recebe os dados, atualiza na lista, seta a mensagem e faz um redirect
 
     Remover:
         Ajustar a view de listagem para adicionar o modal que possui o formulário de remoção que envia o Id
-        Criar a action POST: recebe o id, remove da lista, seta a mensagem e faz um redirect  
-    
-    Criar um tag helper
+        Criar a action POST: recebe o id, remove da lista, seta a mensagem e faz um redirect
+
     Ajustar o Layout, mudar o tema
-    
 -->
