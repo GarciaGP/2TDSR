@@ -14,7 +14,7 @@ namespace Fiap.Aula03.Web.Exemplo01.Models
         [Required, MaxLength(100)]
         public string Nome { get; set; }
 
-        public int Ano { get; set; }
+        public int? Ano { get; set; }
 
         [MaxLength(200)]
         public string Sinopse { get; set; }

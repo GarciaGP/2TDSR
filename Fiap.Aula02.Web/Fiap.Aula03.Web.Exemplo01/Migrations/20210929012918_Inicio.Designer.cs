@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Fiap.Aula03.Web.Exemplo01.Migrations
 {
     [DbContext(typeof(FiapFlixContext))]
-    [Migration("20210922002142_Inicio")]
+    [Migration("20210929012918_Inicio")]
     partial class Inicio
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -29,7 +29,7 @@ namespace Fiap.Aula03.Web.Exemplo01.Migrations
                         .HasColumnName("Id")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Ano")
+                    b.Property<int?>("Ano")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("DataLancamento")

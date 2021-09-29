@@ -6,9 +6,26 @@
 
 <h1>Catálogo</h1>
 
+<mensagem texto="@TempData["msg"]"></mensagem>
+
+<form class="form-inline mb-3">
+    <input type="text" placeholder="Digite o nome" name="nomeBusca" class="form-control mr-2" />
+    <select class="form-control mr-2" name="generoBusca" asp-items="@Html.GetEnumSelectList<Genero>()">
+        <option>Gênero</option>
+    </select>
+    <input type="submit" value="Pesquisar" class="btn btn-success" />
+</form>
+
+@if (Model.Count == 0)
+{
+    <mensagem texto="Nenhum registo encontrado" class="alert alert-danger"></mensagem>
+}
+
+<a asp-action="cadastrar">Cadastrar</a>
+
 <table class="table">
     <tr>
-        <th>Id</th>            
+        <th>Id</th>
         <th>Nome</th>
         <th>Ano</th>
         <th>Data Lançamento</th>
@@ -29,8 +46,33 @@
             <td>@item.Sinopse</td>
             <td>
                 <a asp-action="editar" asp-route-id="@item.FilmeId" class="btn btn-sm btn-dark">Editar</a>
+                <button onclick="idFilme.value = @item.FilmeId" type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModal">
+                    Remover
+                </button>
             </td>
         </tr>
     }
 </table>
 
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Confirmação</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Deseja realmente apagar o filme?
+            </div>
+            <div class="modal-footer">
+                <form asp-action="remover">
+                    <input type="hidden" name="id" id="idFilme" />
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
+                    <button type="submit" class="btn btn-danger">Sim</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

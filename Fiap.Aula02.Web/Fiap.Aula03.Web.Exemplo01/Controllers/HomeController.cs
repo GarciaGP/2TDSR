@@ -1,4 +1,5 @@
 ﻿using Fiap.Aula03.Web.Exemplo01.Models;
+using Fiap.Aula03.Web.Exemplo01.Persistencia;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -12,14 +13,18 @@ namespace Fiap.Aula03.Web.Exemplo01.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        
+        private FiapFlixContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, FiapFlixContext context)
         {
             _logger = logger;
+            _context = context;
         }
 
         public IActionResult Index()
         {
+            ViewData["quantidade"] = _context.Filmes.Count(); //Retorna a quantidade de filmes
             return View();
         }
 

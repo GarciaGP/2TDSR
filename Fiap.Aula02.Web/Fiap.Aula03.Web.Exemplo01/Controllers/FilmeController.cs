@@ -16,6 +16,16 @@ namespace Fiap.Aula03.Web.Exemplo01.Controllers
         }
 
         [HttpPost]
+        public IActionResult Remover(int id)
+        {
+            var filme = _context.Filmes.Find(id); //Pesquisa pela PK
+            _context.Filmes.Remove(filme); //Remove pelo objeto
+            _context.SaveChanges(); //Commit
+            TempData["msg"] = "Filme removido";
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
         public IActionResult Editar(Filme filme)
         {
             _context.Filmes.Update(filme); //Atualiza o filme no banco
@@ -46,9 +56,13 @@ namespace Fiap.Aula03.Web.Exemplo01.Controllers
             return View();
         }
 
-        public IActionResult Index()
-        {
-            var filmes = _context.Filmes.ToList();
+        //? -> permite valor null
+        public IActionResult Index(string nomeBusca, Genero? generoBusca)
+        {      
+            //Contains() -> pesquisa por parte da string 
+            var filmes = _context.Filmes.Where(f => 
+                (f.Nome.Contains(nomeBusca) || nomeBusca == null) && 
+                (f.Genero == generoBusca || generoBusca == null)).ToList();
             return View(filmes);
         }
     }

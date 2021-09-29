@@ -14,7 +14,7 @@ namespace Fiap.Aula03.Web.Exemplo01.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Nome = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Ano = table.Column<int>(type: "int", nullable: false),
+                    Ano = table.Column<int>(type: "int", nullable: true),
                     Sinopse = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     Data_Lancamento = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Maior_Idade = table.Column<bool>(type: "bit", nullable: false),

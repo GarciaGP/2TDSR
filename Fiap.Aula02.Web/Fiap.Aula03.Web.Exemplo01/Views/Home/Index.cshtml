@@ -2,7 +2,11 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="card" style="width: 18rem;">
+    <div class="card-body">
+        <h5 class="card-title">Filmes Disponíveis</h5>        
+        <p class="card-text">@ViewData["quantidade"]</p>
+        <a asp-action="cadastrar" asp-controller="filme" class="card-link">Cadastrar</a>
+        <a asp-action="index" asp-controller="filme" class="card-link">Listar</a>
+    </div>
 </div>
