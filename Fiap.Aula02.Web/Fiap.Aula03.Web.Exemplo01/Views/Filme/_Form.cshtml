@@ -23,6 +23,12 @@
     </select>
 </div>
 <div class="form-group">
+    <label asp-for="Produtora"></label>
+    <select class="form-control" asp-for="ProdutoraId" asp-items="@ViewBag.produtoras">
+        <option>Selecione</option>
+    </select>
+</div>
+<div class="form-group">
     <input asp-for="MaiorIdade" />
     <label asp-for="MaiorIdade"></label>
 </div>

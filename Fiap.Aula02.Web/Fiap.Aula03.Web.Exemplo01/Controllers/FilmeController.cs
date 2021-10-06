@@ -1,6 +1,8 @@
 ﻿using Fiap.Aula03.Web.Exemplo01.Models;
 using Fiap.Aula03.Web.Exemplo01.Persistencia;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
 namespace Fiap.Aula03.Web.Exemplo01.Controllers
@@ -13,6 +15,23 @@ namespace Fiap.Aula03.Web.Exemplo01.Controllers
         public FilmeController(FiapFlixContext context)
         {
             _context = context;
+        }
+
+        [HttpGet]
+        public IActionResult Detalhes(int id)
+        {
+            //Pesquisa o filme pelo Id, incluindo o relacionamento com a produtora
+            var filme = _context.Filmes.Include(f => f.Produtora)
+                .Where(f => id == f.FilmeId).FirstOrDefault();
+
+            //Enviar a lista de atores para o select
+            var atores = _context.Atores.ToList();
+            ViewBag.atoresSelect = new SelectList(atores, "AtorId", "Nome");
+
+            //Envia a lista de atores relacionados com o filme
+            ViewBag.atores = _context.AtoresFilmes.Where(a => a.FilmeId == id).Select(a => a.Ator).ToList();
+
+            return View(filme);
         }
 
         [HttpPost]
@@ -37,8 +56,16 @@ namespace Fiap.Aula03.Web.Exemplo01.Controllers
         [HttpGet]
         public IActionResult Editar(int id)
         {
+            CarregarProdutoras();
             var filme = _context.Filmes.Find(id);
             return View(filme);
+        }
+
+        //Enviar o select list para preencher as opções do select de produtoras
+        private void CarregarProdutoras()
+        {
+            var lista = _context.Produtoras.OrderBy(p => p.Nome).ToList();
+            ViewBag.produtoras = new SelectList(lista, "ProdutoraId", "Nome");
         }
 
         [HttpPost]
@@ -53,6 +80,7 @@ namespace Fiap.Aula03.Web.Exemplo01.Controllers
         [HttpGet]
         public IActionResult Cadastrar()
         {
+            CarregarProdutoras();
             return View();
         }
 
@@ -62,7 +90,7 @@ namespace Fiap.Aula03.Web.Exemplo01.Controllers
             //Contains() -> pesquisa por parte da string 
             var filmes = _context.Filmes.Where(f => 
                 (f.Nome.Contains(nomeBusca) || nomeBusca == null) && 
-                (f.Genero == generoBusca || generoBusca == null)).ToList();
+                (f.Genero == generoBusca || generoBusca == null)).Include(f => f.Produtora).ToList();
             return View(filmes);
         }
     }

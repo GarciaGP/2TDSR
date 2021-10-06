@@ -1,0 +1,30 @@
+﻿@model Filme
+
+@{
+    ViewData["Title"] = "Detalhes";
+}
+
+<h1>@Model.Nome</h1>
+
+<table class="table table-striped">
+    <tr>
+        <th>Produtora</th>
+        <th>Ano</th>
+        <th>Data Lançamento</th>
+        <th>Gênero</th>
+        <th>Maior Idade</th>
+        <th>Sinopse</th>
+    </tr>
+    <tr>
+        <td>@Model.Produtora?.Nome</td>
+        <td>@Model.Ano</td>
+        <td>@Model.DataLancamento.ToShortDateString()</td>
+        <td>@Model.Genero</td>
+        <td>@(Model.MaiorIdade?"Sim":"Não")</td>
+        <td>@Model.Sinopse</td>
+    </tr>
+</table>
+
+<hr />
+<h2>Atores</h2>
+

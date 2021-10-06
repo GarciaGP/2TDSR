@@ -4,14 +4,16 @@ using Fiap.Aula03.Web.Exemplo01.Persistencia;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Fiap.Aula03.Web.Exemplo01.Migrations
 {
     [DbContext(typeof(FiapFlixContext))]
-    partial class FiapFlixContextModelSnapshot : ModelSnapshot
+    [Migration("20211005225942_Relacionamentos")]
+    partial class Relacionamentos
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -109,7 +111,7 @@ namespace Fiap.Aula03.Web.Exemplo01.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<int?>("ProdutoraId")
+                    b.Property<int>("ProdutoraId")
                         .HasColumnType("int");
 
                     b.Property<string>("Sinopse")
@@ -169,7 +171,9 @@ namespace Fiap.Aula03.Web.Exemplo01.Migrations
                 {
                     b.HasOne("Fiap.Aula03.Web.Exemplo01.Models.Produtora", "Produtora")
                         .WithMany("Filmes")
-                        .HasForeignKey("ProdutoraId");
+                        .HasForeignKey("ProdutoraId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Produtora");
                 });

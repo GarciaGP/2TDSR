@@ -32,6 +32,7 @@
         <th>Gênero</th>
         <th>Maior Idade</th>
         <th>Sinopse</th>
+        <th>Produtora</th>
         <th></th>
     </tr>
     @foreach (var item in Model)
@@ -44,11 +45,15 @@
             <td>@item.Genero</td>
             <td>@(item.MaiorIdade?"Sim":"Não")</td>
             <td>@item.Sinopse</td>
+            <td>@item.Produtora?.Nome</td>
             <td>
-                <a asp-action="editar" asp-route-id="@item.FilmeId" class="btn btn-sm btn-dark">Editar</a>
+                <a asp-action="editar" asp-route-id="@item.FilmeId" 
+                                    class="btn btn-sm btn-dark">Editar</a>
                 <button onclick="idFilme.value = @item.FilmeId" type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModal">
                     Remover
                 </button>
+                <a asp-action="detalhes" asp-route-id="@item.FilmeId" 
+                                    class="btn btn-sm btn-success">Detalhes</a>
             </td>
         </tr>
     }

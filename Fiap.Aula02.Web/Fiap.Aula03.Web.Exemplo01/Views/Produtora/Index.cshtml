@@ -1,0 +1,28 @@
+﻿@model IList<Produtora>
+
+@{
+    ViewData["Title"] = "Produtoras";
+}
+
+<h1>Produtoras</h1>
+
+<mensagem texto="@TempData["msg"]"></mensagem>
+
+<a asp-action="cadastrar">Cadastrar</a>
+
+<table class="table">
+    <tr>
+        <th>Nome</th>
+        <th>Endereço</th>
+        <th>CEP</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Nome</td>
+            <td>@item.Endereco.Logradouro</td>
+            <td>@item.Endereco.Cep</td>
+        </tr>
+    }
+</table>
+

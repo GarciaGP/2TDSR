@@ -15,5 +15,12 @@ namespace Fiap.Aula03.Web.Exemplo01.Models
 
         [Required, MaxLength(150)]
         public string Nome { get; set; }
+
+        //Relacionamento um-para-muitos
+        public virtual ICollection<Filme> Filmes { get; set; }
+
+        //Relacionamento um-para-um
+        public Endereco Endereco { get; set; }
+        public int EnderecoId { get; set; }
     }
 }

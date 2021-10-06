@@ -22,7 +22,7 @@
                             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link" asp-area="" asp-controller="Ator" asp-action="Index">Atores</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -30,7 +30,16 @@
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" asp-action="cadastrar" asp-controller="filme">Cadastrar</a>
-                                <a class="dropdown-item" asp-action="index" asp-controller="filme">Listar</a>                              
+                                <a class="dropdown-item" asp-action="index" asp-controller="filme">Listar</a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Produtora
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" asp-action="cadastrar" asp-controller="produtora">Cadastrar</a>
+                                <a class="dropdown-item" asp-action="index" asp-controller="produtora">Listar</a>
                             </div>
                         </li>
                     </ul>

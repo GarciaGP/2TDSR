@@ -13,10 +13,13 @@ namespace Fiap.Aula03.Web.Exemplo01.Models
         [Column("Id")]
         public int AtorId { get; set; }
 
+        //Relacionamento muitos-para-muitos
+        public ICollection<AtorFilme> AtoresFilmes { get; set; }
+
         [Required, MaxLength(100)]
         public string Nome { get; set; }
 
-        [Column("Dt_Nascimento"), Display(Name = "Data de Nascimento")]
+        [Column("Dt_Nascimento"), Display(Name = "Data de Nascimento"), DataType(DataType.Date)]
         public DateTime DataNascimento { get; set; }
         
         [Display(Name = "Gênero")]

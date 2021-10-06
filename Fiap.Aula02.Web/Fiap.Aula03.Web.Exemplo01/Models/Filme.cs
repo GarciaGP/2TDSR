@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -10,6 +11,13 @@ namespace Fiap.Aula03.Web.Exemplo01.Models
     {
         [Column("Id"), HiddenInput]
         public int FilmeId { get; set; }
+
+        //Relacionamentos Muitos-Para-Um
+        public Produtora Produtora { get; set; }
+        public int? ProdutoraId { get; set; }
+
+        //Relacionamento Muitos-para-Muitos
+        public ICollection<AtorFilme> AtoresFilmes { get; set; }
 
         [Required, MaxLength(100)]
         public string Nome { get; set; }

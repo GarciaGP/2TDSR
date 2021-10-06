@@ -4,14 +4,16 @@ using Fiap.Aula03.Web.Exemplo01.Persistencia;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Fiap.Aula03.Web.Exemplo01.Migrations
 {
     [DbContext(typeof(FiapFlixContext))]
-    partial class FiapFlixContextModelSnapshot : ModelSnapshot
+    [Migration("20211005230906_Relacionamentos2")]
+    partial class Relacionamentos2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
