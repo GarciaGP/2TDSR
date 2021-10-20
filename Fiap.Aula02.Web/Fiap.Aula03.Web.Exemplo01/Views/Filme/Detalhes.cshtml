@@ -1,10 +1,10 @@
-﻿@model Filme
+﻿@model FilmeViewModel
 
 @{
     ViewData["Title"] = "Detalhes";
 }
 
-<h1>@Model.Nome</h1>
+<h1>@Model.Filme.Nome <span class="badge badge-primary rounded-pill">@Model.Filme.Ano</span> </h1>
 
 <table class="table table-striped">
     <tr>
@@ -16,15 +16,33 @@
         <th>Sinopse</th>
     </tr>
     <tr>
-        <td>@Model.Produtora?.Nome</td>
-        <td>@Model.Ano</td>
-        <td>@Model.DataLancamento.ToShortDateString()</td>
-        <td>@Model.Genero</td>
-        <td>@(Model.MaiorIdade?"Sim":"Não")</td>
-        <td>@Model.Sinopse</td>
+        <td>@Model.Filme.Produtora?.Nome</td>
+        <td>@Model.Filme.Ano</td>
+        <td>@Model.Filme.DataLancamento.ToShortDateString()</td>
+        <td>@Model.Filme.Genero</td>
+        <td>@(Model.Filme.MaiorIdade?"Sim":"Não")</td>
+        <td>@Model.Filme.Sinopse</td>
     </tr>
 </table>
 
 <hr />
 <h2>Atores</h2>
 
+<mensagem texto="@TempData["msg"]"></mensagem>
+
+<form asp-action="adicionar" class="form-check-inline mb-3">
+    <input type="hidden" name="FilmeId" value="@Model.Filme.FilmeId" />
+    <select name="AtorId" class="form-control mr-2" asp-items="Model.Select">
+        <option>Selecione</option>
+    </select>
+    <input type="submit" value="Adicionar" class="btn btn-success" />
+</form>
+
+<ul class="list-group">
+    @foreach (var item in Model.Lista)
+    {
+        <li class="list-group-item">@item.Nome</li>
+    }
+</ul>
+
+<a asp-action="index" class="btn btn-primary mt-4">Finalizar</a>

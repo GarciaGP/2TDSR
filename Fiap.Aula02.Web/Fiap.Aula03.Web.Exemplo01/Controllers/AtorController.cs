@@ -1,5 +1,7 @@
 ﻿using Fiap.Aula03.Web.Exemplo01.Models;
 using Fiap.Aula03.Web.Exemplo01.Persistencia;
+using Fiap.Aula03.Web.Exemplo01.Repositories;
+using Fiap.Aula03.Web.Exemplo01.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -10,26 +12,29 @@ namespace Fiap.Aula03.Web.Exemplo01.Controllers
 {
     public class AtorController : Controller
     {
-        private FiapFlixContext _context;
+        private IAtorRepository _atorRepository;
 
-        public AtorController(FiapFlixContext context)
+        public AtorController(IAtorRepository atorRepository)
         {
-            _context = context;
+            _atorRepository = atorRepository;
         }
 
         [HttpPost]
         public IActionResult Cadastrar(Ator ator)
         {
-            _context.Atores.Add(ator);
-            _context.SaveChanges();
+            _atorRepository.Cadastrar(ator);
+            _atorRepository.Salvar();
             TempData["msg"] = "Ator cadastrado";
             return RedirectToAction("Index");
         }
 
         public IActionResult Index()
         {
-            ViewBag.atores = _context.Atores.ToList();
-            return View();
+            var viewModel = new AtorViewModel()
+            {
+                Lista = _atorRepository.Listar()
+            };
+            return View(viewModel);
         }
     }
 }

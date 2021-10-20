@@ -1,4 +1,5 @@
 using Fiap.Aula03.Web.Exemplo01.Persistencia;
+using Fiap.Aula03.Web.Exemplo01.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -25,9 +26,17 @@ namespace Fiap.Aula03.Web.Exemplo01
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
             //Configurar a injeção de dependência do DbContext
             services.AddDbContext<FiapFlixContext>(op => 
                 op.UseSqlServer(Configuration.GetConnectionString("conexao")));
+
+            //Configurar a injeção de dependência dos Repositories
+            services.AddScoped<IFilmeRepository, FilmeRepository>();
+            services.AddScoped<IAtorRepository, AtorRepository>();
+            services.AddScoped<IProdutoraRepository, ProdutoraRepository>();
+            services.AddScoped<IAtorFilmeRepository, AtorFilmeRepository>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

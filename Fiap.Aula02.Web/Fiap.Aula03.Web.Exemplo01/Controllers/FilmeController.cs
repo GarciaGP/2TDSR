@@ -1,5 +1,7 @@
 ﻿using Fiap.Aula03.Web.Exemplo01.Models;
 using Fiap.Aula03.Web.Exemplo01.Persistencia;
+using Fiap.Aula03.Web.Exemplo01.Repositories;
+using Fiap.Aula03.Web.Exemplo01.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -9,37 +11,67 @@ namespace Fiap.Aula03.Web.Exemplo01.Controllers
 {
     public class FilmeController : Controller
     {
-        private FiapFlixContext _context;
+        private IFilmeRepository _filmeRepository;
+        private IAtorRepository _atorRepository;
+        private IProdutoraRepository _produtoraRepository;
+        private IAtorFilmeRepository _atorFilmeRepository;
 
         //Construtor que recebe o DbContext por injeção de dependência
-        public FilmeController(FiapFlixContext context)
+        public FilmeController(IAtorFilmeRepository atorFilmeRepository, 
+                                IProdutoraRepository produtoraRepository,
+                                IFilmeRepository filmeRepository, 
+                                IAtorRepository atorRepository)
         {
-            _context = context;
+            _filmeRepository = filmeRepository;
+            _atorRepository = atorRepository;
+            _produtoraRepository = produtoraRepository;
+            _atorFilmeRepository = atorFilmeRepository;
+        }
+
+        [HttpPost]
+        public IActionResult Adicionar(AtorFilme atorFilme)
+        {
+            _atorFilmeRepository.Cadastrar(atorFilme);
+            _atorFilmeRepository.Salvar();
+            TempData["msg"] = "Adicionado!";
+            return RedirectToAction("Detalhes", new { id = atorFilme.FilmeId });
         }
 
         [HttpGet]
         public IActionResult Detalhes(int id)
         {
             //Pesquisa o filme pelo Id, incluindo o relacionamento com a produtora
-            var filme = _context.Filmes.Include(f => f.Produtora)
-                .Where(f => id == f.FilmeId).FirstOrDefault();
+            //var filme = _filmeRepository.BuscarPorId(id);
 
-            //Enviar a lista de atores para o select
-            var atores = _context.Atores.ToList();
-            ViewBag.atoresSelect = new SelectList(atores, "AtorId", "Nome");
+            //Pesquisa todos os filmes
+            var atores = _atorRepository.Listar();
 
-            //Envia a lista de atores relacionados com o filme
-            ViewBag.atores = _context.AtoresFilmes.Where(a => a.FilmeId == id).Select(a => a.Ator).ToList();
+            //Pesquisa os atores relacionados com o filme
+            var atoresFilme = _atorRepository.BuscarPorFilme(id);
 
-            return View(filme);
+            //Filtrar a lista, retirando os atores já relacionados com o filme
+            var listaFiltrada = atores.Where(a => !atoresFilme.Any(a1 => a1.AtorId == a.AtorId));
+
+            //Envia as opções do select
+            //ViewBag.atoresSelect = new SelectList(listaFiltrada, "AtorId", "Nome");
+            //Envia os atores relacionados com o filme
+            //ViewBag.atores = atoresFilme;
+
+            var viewModel = new FilmeViewModel()
+            {
+                Filme = _filmeRepository.BuscarPorId(id),
+                Select = new SelectList(listaFiltrada, "AtorId", "Nome"),
+                Lista = atoresFilme
+            };
+
+            return View(viewModel);
         }
 
         [HttpPost]
         public IActionResult Remover(int id)
         {
-            var filme = _context.Filmes.Find(id); //Pesquisa pela PK
-            _context.Filmes.Remove(filme); //Remove pelo objeto
-            _context.SaveChanges(); //Commit
+            _filmeRepository.Remover(id);
+            _filmeRepository.Salvar();
             TempData["msg"] = "Filme removido";
             return RedirectToAction("Index");
         }
@@ -47,8 +79,8 @@ namespace Fiap.Aula03.Web.Exemplo01.Controllers
         [HttpPost]
         public IActionResult Editar(Filme filme)
         {
-            _context.Filmes.Update(filme); //Atualiza o filme no banco
-            _context.SaveChanges(); //Commit
+            _filmeRepository.Atualizar(filme);
+            _filmeRepository.Salvar();
             TempData["msg"] = "Filme atualizado!";
             return RedirectToAction("Index");
         }
@@ -57,24 +89,24 @@ namespace Fiap.Aula03.Web.Exemplo01.Controllers
         public IActionResult Editar(int id)
         {
             CarregarProdutoras();
-            var filme = _context.Filmes.Find(id);
+            var filme = _filmeRepository.BuscarPorId(id);
             return View(filme);
         }
 
         //Enviar o select list para preencher as opções do select de produtoras
         private void CarregarProdutoras()
         {
-            var lista = _context.Produtoras.OrderBy(p => p.Nome).ToList();
+            var lista = _produtoraRepository.Listar();
             ViewBag.produtoras = new SelectList(lista, "ProdutoraId", "Nome");
         }
 
         [HttpPost]
         public IActionResult Cadastrar(Filme filme)
         {
-            _context.Filmes.Add(filme); //Adiciona o filme no contexto
-            _context.SaveChanges(); //Commit
+            _filmeRepository.Cadastrar(filme);
+            _filmeRepository.Salvar();
             TempData["msg"] = "Filme cadastrado!";
-            return RedirectToAction("Index");
+            return RedirectToAction("Detalhes", new { id = filme.FilmeId });
         }
 
         [HttpGet]
@@ -88,9 +120,9 @@ namespace Fiap.Aula03.Web.Exemplo01.Controllers
         public IActionResult Index(string nomeBusca, Genero? generoBusca)
         {      
             //Contains() -> pesquisa por parte da string 
-            var filmes = _context.Filmes.Where(f => 
+            var filmes = _filmeRepository.BuscarPor(f => 
                 (f.Nome.Contains(nomeBusca) || nomeBusca == null) && 
-                (f.Genero == generoBusca || generoBusca == null)).Include(f => f.Produtora).ToList();
+                (f.Genero == generoBusca || generoBusca == null));
             return View(filmes);
         }
     }

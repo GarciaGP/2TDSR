@@ -1,5 +1,6 @@
 ﻿using Fiap.Aula03.Web.Exemplo01.Models;
 using Fiap.Aula03.Web.Exemplo01.Persistencia;
+using Fiap.Aula03.Web.Exemplo01.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -11,11 +12,11 @@ namespace Fiap.Aula03.Web.Exemplo01.Controllers
 {
     public class ProdutoraController : Controller
     {
-        private FiapFlixContext _context;
+        private IProdutoraRepository _produtoraRepository;
 
-        public ProdutoraController(FiapFlixContext context)
+        public ProdutoraController(IProdutoraRepository produtoraRepository)
         {
-            _context = context;
+            _produtoraRepository = produtoraRepository;
         }
 
         [HttpGet]
@@ -27,8 +28,8 @@ namespace Fiap.Aula03.Web.Exemplo01.Controllers
         [HttpPost]
         public IActionResult Cadastrar(Produtora produtora)
         {
-            _context.Produtoras.Add(produtora);
-            _context.SaveChanges();
+            _produtoraRepository.Cadastrar(produtora);
+            _produtoraRepository.Salvar();
             TempData["msg"] = "Produtora registrada";
             return RedirectToAction("Index");
         }
@@ -36,7 +37,7 @@ namespace Fiap.Aula03.Web.Exemplo01.Controllers
         public IActionResult Index()
         {
             //Include -> inclui o relacionamento no resultado da pesquisa
-            var lista = _context.Produtoras.Include(p => p.Endereco).ToList();
+            var lista = _produtoraRepository.Listar();
             return View(lista);
         }
     }
